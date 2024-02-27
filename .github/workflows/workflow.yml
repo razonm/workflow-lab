@@ -41,14 +41,14 @@ jobs:
           # Additional options for the CodeQL CLI
           options: -j 0 --fail-on=warning
 
-  # Example matrix for multi-language support
-  strategy:
-    matrix:
-      language: [ 'python', 'javascript' ]
-      # Add more languages as needed
-  env:
-    # Specify the CodeQL CLI version
-    CODEQL_CLI: "2.7.2"
+          # Example matrix for multi-language support
+          strategy:
+            matrix:
+              language: [ 'python', 'javascript' ]
+              # Add more languages as needed
+          env:
+            # Specify the CodeQL CLI version
+            CODEQL_CLI: "2.7.2"
 
       - name: Dependency Scanning
         uses: github/dependency-graph-action@v2
