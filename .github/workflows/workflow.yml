@@ -50,9 +50,6 @@ jobs:
           # Specify the CodeQL CLI version
           CODEQL_CLI: "2.7.2"
 
-      - name: Dependency Scanning
-        uses: github/dependency-graph-action@v2
-
       - name: Publish Coverage Report
         if: always() # Ensure coverage is published even if tests fail
         uses: codecov/codecov-action@v2
