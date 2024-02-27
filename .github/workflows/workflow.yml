@@ -26,7 +26,29 @@ jobs:
       - name: CodeQL Analysis
         uses: github/codeql-action/analyze@v2
         with:
-          # Customize CodeQL analysis as needed
+          # Path to your CodeQL queries (assuming you have a 'codeql' directory)
+          queries: codeql/queries
+      
+          # Language of the code you are analyzing
+          language: python
+      
+          # Path to the CodeQL database (a directory where the analysis results are stored)
+          database-path: ./codeql-database
+      
+          # The name of the SARIF file (Static Analysis Results Interchange Format)
+          sarif-file: codeql-results.sarif
+      
+          # Additional options for the CodeQL CLI
+          options: -j 0 --fail-on=warning
+
+  # Example matrix for multi-language support
+  strategy:
+    matrix:
+      language: [ 'python', 'javascript' ]
+      # Add more languages as needed
+  env:
+    # Specify the CodeQL CLI version
+    CODEQL_CLI: "2.7.2"
 
       - name: Dependency Scanning
         uses: github/dependency-graph-action@v2
