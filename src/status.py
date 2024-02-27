@@ -1,3 +1,5 @@
+"""Define HTTP status codes"""
+
 # HTTP status codes
 HTTP_200_OK = 200
 HTTP_201_CREATED = 201
