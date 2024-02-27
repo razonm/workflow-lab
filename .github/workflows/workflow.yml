@@ -9,6 +9,11 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+     # Example matrix for multi-language support
+    strategy:
+      matrix:
+        language: [ 'python', 'javascript' ]
+        # Add more languages as needed
     container: python:3.9-slim
     steps:
       - name: Checkout
@@ -30,7 +35,7 @@ jobs:
           queries: codeql/queries
       
           # Language of the code you are analyzing
-          language: python
+          language: ${{ matrix.language }}
       
           # Path to the CodeQL database (a directory where the analysis results are stored)
           database-path: ./codeql-database
@@ -41,14 +46,9 @@ jobs:
           # Additional options for the CodeQL CLI
           options: -j 0 --fail-on=warning
 
-          # Example matrix for multi-language support
-          strategy:
-            matrix:
-              language: [ 'python', 'javascript' ]
-              # Add more languages as needed
-          env:
-            # Specify the CodeQL CLI version
-            CODEQL_CLI: "2.7.2"
+        env:
+          # Specify the CodeQL CLI version
+          CODEQL_CLI: "2.7.2"
 
       - name: Dependency Scanning
         uses: github/dependency-graph-action@v2
