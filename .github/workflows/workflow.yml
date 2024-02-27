@@ -30,4 +30,5 @@ jobs:
       - name: Generate documentation with Sphinx
         run: |
           pip install sphinx
+          sphinx-quickstart -q -p docs
           sphinx-build -b html docs/ build/
