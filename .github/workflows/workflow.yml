@@ -27,3 +27,8 @@ jobs:
         run: |
           pip install bandit
           bandit -r src
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v2
+        with:
+          name: coverage
+          path: coverage/
