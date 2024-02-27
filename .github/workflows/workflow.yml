@@ -27,14 +27,3 @@ jobs:
         run: |
           pip install bandit
           bandit -r src
-      - name: Generate conf.py
-        run: |
-          cd docs
-          cp conf.py.template conf.py
-          sed -i 's|{{ html_theme }}|alabaster|g' conf.py
-          cd ..
-      - name: Generate documentation with Sphinx
-        run: |
-          pip install sphinx
-          cd docs
-          make html
