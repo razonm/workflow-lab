@@ -39,8 +39,7 @@ def read_counter(name):
     app.logger.info(f"Request to read counter: {name}")
     if name in COUNTERS:
         return {name: COUNTERS[name]}, status.HTTP_200_OK
-    else:
-        return {"Message": "{name} not found"}, status.HTTP_404_NOT_FOUND
+    return {"Message": "{name} not found"}, status.HTTP_404_NOT_FOUND
 
 
 @app.route('/counters/<name>', methods=['DELETE'])
@@ -49,5 +48,4 @@ def delete_counter(name):
     app.logger.info(f"Request to delete counter: {name}")
     if name in COUNTERS:
         return {name: COUNTERS.pop(name)}, status.HTTP_204_NO_CONTENT
-    else:
-        return {"Message": "{name} not found"}, status.HTTP_404_NOT_FOUND
+    return {"Message": "{name} not found"}, status.HTTP_404_NOT_FOUND
