@@ -23,4 +23,39 @@ jobs:
           flake8 src --count --max-complexity=10 --max-line-length=127 --statistics
       - name: Run unit tests with nose
         run: nosetests -v --with-spec --spec-color --with-coverage --cover-package=app
+      - name: CodeQL Analysis
+        uses: github/codeql-action/analyze@v2
+        with:
+          # Customize CodeQL analysis as needed
 
+      - name: Dependency Scanning
+        uses: github/dependency-graph-action@v2
+
+      - name: Publish Coverage Report
+        if: always() # Ensure coverage is published even if tests fail
+        uses: codecov/codecov-action@v2
+        with:
+          file: ./coverage.xml
+          flags: unittests
+
+      - name: Build and Push Docker Image
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Generate Documentation
+        run: |
+          pip install sphinx
+          sphinx-quickstart -p docs source
+          sphinx-build -b html source docs
+
+      - name: Deploy Documentation
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs
