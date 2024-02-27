@@ -24,7 +24,9 @@ jobs:
       - name: Run unit tests with nose
         run: nosetests -v --with-spec --spec-color --with-coverage --cover-package=app
       - name: Run dependency check with Bandit
-        run: bandit -r src
+        run: |
+          pip install bandit
+          bandit -r src
       - name: Generate documentation with Sphinx
         run: |
           pip install sphinx
