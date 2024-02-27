@@ -1,5 +1,5 @@
 from flask import Flask
-from src import status
+import status
 app = Flask(__name__)
 
 """Implement REST protocols for counter objects"""
