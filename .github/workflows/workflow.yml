@@ -27,8 +27,12 @@ jobs:
         run: |
           pip install bandit
           bandit -r src
-      - name: Upload coverage report
+      - name: Generate documentation with MkDocs
+        run: |
+          pip install mkdocs
+          mkdocs build
+      - name: Upload documentation
         uses: actions/upload-artifact@v2
         with:
-          name: coverage
-          path: coverage/
+          name: docs
+          path: site/
